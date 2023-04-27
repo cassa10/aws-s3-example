@@ -12,7 +12,7 @@ func main() {
 		commonText := "factura001"
 		filenameWithPrefix := fmt.Sprintf("/a2023/enero/%s.txt", commonText)
 
-		err := awsRepo.DownloadFile(filenameWithPrefix, fmt.Sprintf("C:\\Users\\cassa\\GitRepos\\aws-s3-example\\data\\%s.txt", commonText))
+		err := awsRepo.DownloadFile(filenameWithPrefix, fmt.Sprintf("../data/%s.txt", commonText))
 		//err := awsRepo.SaveFile(filenameWithPrefix, []byte(fmt.Sprintf("%s en formato texto bla bla...", commonText)))
 		if err != nil {
 			panic(err)
