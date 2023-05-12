@@ -12,8 +12,8 @@ func main() {
 		commonText := "factura001"
 		filenameWithPrefix := fmt.Sprintf("/a2023/enero/%s.txt", commonText)
 
-		err := awsRepo.DownloadFile(filenameWithPrefix, fmt.Sprintf("../data/%s.txt", commonText))
-		//err := awsRepo.SaveFile(filenameWithPrefix, []byte(fmt.Sprintf("%s en formato texto bla bla...", commonText)))
+		//err := awsRepo.DownloadFile(filenameWithPrefix, fmt.Sprintf("../data/%s.txt", commonText))
+		err := awsRepo.SaveFile(filenameWithPrefix, []byte(fmt.Sprintf("%s en formato texto bla bla...", commonText)))
 		if err != nil {
 			panic(err)
 		}
@@ -32,12 +32,16 @@ func logScript(f func()) {
 }
 
 func ListBucketObjets(awsRepo *AwsRepository) {
+	fmt.Println("ListBucketObjets: ")
 	objects := awsRepo.ListObjectsFromBucket()
-	if len(objects) == 0 {
+	if sizeObj := len(objects); sizeObj == 0 {
 		fmt.Println("------------------------------------")
 		fmt.Println("No objects")
 		fmt.Println("------------------------------------")
+	} else {
+		fmt.Println(fmt.Sprintf("Objects found %v", sizeObj))
 	}
+
 	for i, obj := range objects {
 		fmt.Println("#Obj:         ", i)
 		fmt.Println("Name:         ", *obj.Key)
@@ -46,4 +50,5 @@ func ListBucketObjets(awsRepo *AwsRepository) {
 		fmt.Println("Storage class:", *obj.StorageClass)
 		fmt.Println("------------------------------------")
 	}
+	fmt.Println("- ListBucketObjets END -")
 }
